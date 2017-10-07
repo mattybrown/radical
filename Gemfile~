@@ -9,7 +9,6 @@ gem 'sinatra-activerecord'
 gem 'sqlite3'
 gem 'rake'
 gem 'haml'
-gem 'thin'
 
 group :development, :test do
 

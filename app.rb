@@ -1,21 +1,18 @@
 require 'tilt/erb'
 require 'sinatra/activerecord'
-require './db/models/user_model.rb'
+require './db/models/model.rb'
 
+# Radical ad tracking application
 class Radical < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
   enable :sessions
 
-  set :session_secret, ENV[session_secret]
-  set :database, {adapter: "sqlite3", database: "radical.sqlite3"}
+  set :session_secret, ENV.fetch('SESSION_SECRET')
+  set :database, { adapter: 'sqlite3', database: 'radical.sqlite3' }
 
-  get '/users' do
-    @users = User.all
-  end
+  require_relative 'routes/agents'
 
-  get '/users/:id' do
-    @user = User.find(params[:id])
-    haml :show
-  end
+  register Sinatra::Radical::Routing::Agents
+
 end

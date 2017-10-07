@@ -10,13 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006021951) do
+ActiveRecord::Schema.define(version: 20171007003807) do
+
+  create_table "ad_categories", force: :cascade do |t|
+    t.string "name"
+    t.float "price"
+  end
+
+  create_table "ad_groups", force: :cascade do |t|
+    t.string "name"
+    t.float "budget"
+    t.integer "user_id"
+    t.integer "ads_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ads_id"], name: "index_ad_groups_on_ads_id"
+    t.index ["user_id"], name: "index_ad_groups_on_user_id"
+  end
+
+  create_table "ads", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "deadline"
+    t.datetime "run_date"
+    t.datetime "end_date"
+    t.boolean "vendor_pays"
+    t.boolean "complete"
+    t.boolean "approved"
+    t.boolean "created"
+    t.integer "ad_group_id"
+    t.integer "ad_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ad_category_id"], name: "index_ads_on_ad_category_id"
+    t.index ["ad_group_id"], name: "index_ads_on_ad_group_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.integer "access_level"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_roles_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "password"
+    t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
 end

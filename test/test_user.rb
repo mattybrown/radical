@@ -2,7 +2,6 @@
 require File.expand_path '../helper.rb', __FILE__
 
 class MyTest < MiniTest::Test
-
   include Rack::Test::Methods
 
   def app
@@ -14,6 +13,9 @@ class MyTest < MiniTest::Test
   end
 
   def test_user_exists
-    assert_equal "Matt", @user.name
+    get '/users/1'
+    assert last_response.ok?
+    assert_includes last_response.body, @user.name
   end
+
 end

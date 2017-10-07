@@ -1,0 +1,71 @@
+%section.section
+  .container
+    %h1.title= @user.name.capitalize
+    - @ad_groups.each do |a|
+      .card
+        %header.card-header
+          %p.card-header-title= a.name
+          %a.card-header-icon{ href: "#", aria: { label: "more options" } }
+            %span.icon
+              %i.fa.fa-angle-down{ aria: { hidden: true } }
+        .card-content
+          .content
+            - @cost = 0
+            - a.ads.each do |b|
+              - @cost += b.ad_category.price
+              .box
+                %ad.media
+                  .media-content
+                    .content
+                      %p
+                        %strong #{b.name} - #{b.ad_category.name}
+                        %small= b.deadline.strftime("Due %d/%m/%Y")
+                        %br
+                        = b.description
+                        %br
+                        %hr
+                        %small= b.run_date.strftime("Run date: %d/%m/%Y")
+                    %nav.level.is-mobile
+                      .level-left
+                        - if !b.created
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-cogs
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-close
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-close
+                        - elsif b.created && !b.approved
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-check-circle
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-comment
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-close
+                        - else
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-check-circle
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-check-circle
+                          %span.level-item
+                            %span.icon.is-small
+                              %i.fa.fa-newspaper-o
+            %strong
+              Budget: $#{a.budget}
+            %small
+              $#{@cost} spent
+            %progress.progress.is-success{ value: a.budget - @cost, max: a.budget }
+            %time{ datetime: a.created_at}= a.created_at.strftime("Ad group created on %d/%m/%Y")
+        %footer.card-footer
+          %a.card-footer-item{ href: "#"}
+            Create New Ad
+          %a.card-footer-item{ href: "#"}
+            Edit Budget
+      %br
