@@ -4,6 +4,7 @@ class CreateAdCategory < ActiveRecord::Migration[5.1]
     create_table :ad_categories do |t|
       t.string :name
       t.float :price
+      t.boolean :company_paid
     end
   end
 end

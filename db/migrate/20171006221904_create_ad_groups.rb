@@ -4,6 +4,7 @@ class CreateAdGroups < ActiveRecord::Migration[5.1]
     create_table :ad_groups do |t|
       t.string :name
       t.float :budget
+      t.boolean :paid
       t.belongs_to :user, index: true
       t.belongs_to :ads, index: true
       t.timestamps

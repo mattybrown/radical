@@ -12,7 +12,9 @@ class Radical < Sinatra::Base
   set :database, { adapter: 'sqlite3', database: 'radical.sqlite3' }
 
   require_relative 'routes/agents'
+  require_relative 'routes/accounts'
 
   register Sinatra::Radical::Routing::Agents
+  register Sinatra::Radical::Routing::Accounts
 
 end

@@ -15,11 +15,13 @@ ActiveRecord::Schema.define(version: 20171007003807) do
   create_table "ad_categories", force: :cascade do |t|
     t.string "name"
     t.float "price"
+    t.boolean "company_paid"
   end
 
   create_table "ad_groups", force: :cascade do |t|
     t.string "name"
     t.float "budget"
+    t.boolean "paid"
     t.integer "user_id"
     t.integer "ads_id"
     t.datetime "created_at", null: false
@@ -30,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171007003807) do
 
   create_table "ads", force: :cascade do |t|
     t.string "name"
+    t.string "reference"
     t.text "description"
     t.datetime "deadline"
     t.datetime "run_date"

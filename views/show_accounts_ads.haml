@@ -1,0 +1,45 @@
+%section.section
+  .container
+    %table.table
+      %thead
+        %tr
+          %th ID
+          %th Ad Group
+          %th Agent
+          %th Budget
+          %th Spent
+          %th Company
+          %th Agent
+          %th Vendor
+          %th Ad Count
+          %th Created At
+          %th Paid
+      %tbody
+        - @ad_groups.each do |a|
+          - @spent = 0
+          - @company = 0
+          - @agent = 0
+          - @vendor = 0
+          - a.ads.each do |x|
+            - @spent += x.ad_category.price
+            - if x.ad_category.company_paid
+              - @company += x.ad_category.price
+            - elsif x.vendor_pays
+              - @vendor += x.ad_category.price
+            - else
+              - @agent += x.ad_category.price
+
+          %tr
+            %td= a.id
+            %td= a.name
+            %td= a.user.name.capitalize
+            %td= a.budget
+            %td= @spent
+            %td= @company
+            %td= @agent
+            %td= @vendor
+            %td= a.ads.count
+            %td= a.created_at
+            %td= a.paid ? true : false
+
+      %tfoot
