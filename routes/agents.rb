@@ -12,7 +12,7 @@ module Sinatra
           end
 
           app.get '/agents/:name' do
-
+            env['warden'].authenticate!
             @user = User.find_by(name: params[:name])
             @ad_groups = @user.ad_groups
 

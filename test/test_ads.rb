@@ -14,13 +14,13 @@ class AdTest < MiniTest::Test
   end
 
   def test_adgroup_exists
-    get '/users/1'
+    get "/agents/#{@ad_group.user.name}"
     assert last_response.ok?
     assert_includes last_response.body, @ad_group.name
   end
 
   def test_ad_exists
-    get '/users/1'
+    get "/agents/#{@ad_group.user.name}"
     assert last_response.ok?
     assert_includes last_response.body, @ad.name
   end

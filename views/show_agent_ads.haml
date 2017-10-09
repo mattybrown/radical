@@ -11,20 +11,28 @@
         .card-content
           .content
             - @cost = 0
+            - @agent_spend = 0
             - a.ads.each do |b|
-              - @cost += b.ad_category.price
+              - if b.ad_category.company_paid == false && b.vendor_pays == true
+                - @cost += b.ad_category.price
+              - elsif b.ad_category.company_paid == false && b.vendor_pays == false
+                - @agent_spend += b.ad_category.price
               .box
                 %ad.media
                   .media-content
                     .content
                       %p
                         %strong #{b.name} - #{b.ad_category.name}
-                        %small= b.deadline.strftime("Due %d/%m/%Y")
+                        %small= b.reference
                         %br
                         = b.description
                         %br
                         %hr
+                        %small= b.deadline.strftime("Deadline %d/%m/%Y")
+                        %br
                         %small= b.run_date.strftime("Run date: %d/%m/%Y")
+                        %br
+                        %small= "$#{b.ad_category.price} "
                         - if b.end_date
                           %small= " - #{b.end_date.strftime('%d/%m/%Y')}"
                     %nav.level.is-mobile
@@ -73,6 +81,11 @@
             %small
               $#{@cost} spent
             %progress.progress.is-success{ value: a.budget - @cost, max: a.budget }
+            %strong
+              Agent: $#{a.agent_budget}
+            %small
+              $#{@agent_spend} spent
+            %progress.progress.is-danger{ value: a.agent_budget - @agent_spend, max: a.agent_budget }
             %time{ datetime: a.created_at}= a.created_at.strftime("Ad group created on %d/%m/%Y")
         %footer.card-footer
           %a.card-footer-item{ href: "/ad/create/#{a.canonical}/"}

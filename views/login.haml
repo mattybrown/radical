@@ -1,0 +1,19 @@
+%section.section
+  .container
+    .columns.is-centered
+      .column.is-half.is-narrow
+        %form{ action: "/login", method: "POST" }
+          .field
+            %label.label
+              Email
+            .control
+              %input.input{ type: "text", placeholder: "Email address", name: "user[email]" }
+          .field
+            %label.label
+              Password
+            .control
+              %input.input{ type: "password", placeholder: "Password", name: "user[password]" }
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Log in

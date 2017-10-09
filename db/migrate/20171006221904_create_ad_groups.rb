@@ -6,6 +6,7 @@ class CreateAdGroups < ActiveRecord::Migration[5.1]
       t.string :canonical
       t.integer :listing_number
       t.float :budget
+      t.float :agent_budget
       t.boolean :paid
       t.belongs_to :user, index: true
       t.belongs_to :ads, index: true

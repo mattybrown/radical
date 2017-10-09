@@ -7,6 +7,7 @@ require './db/models/model.rb'
 # Radical ad tracking application
 class Radical < Sinatra::Base
   register Sinatra::ActiveRecordExtension
+  register Sinatra::Flash
 
   enable :sessions
 
@@ -16,9 +17,9 @@ class Radical < Sinatra::Base
   # Authentication
   use Warden::Manager do |manager|
     manager.serialize_into_session{ |user| user.id }
-    manager.serialize_from_session{ |id| User.get(id) }
+    manager.serialize_from_session{ |id| User.find(id) }
 
-    manager.scope_defaults :default, strategies: [:password], action: '/login'
+    manager.scope_defaults :default, strategies: [:password], action: '/unauthenticated'
     manager.failure_app = self
   end
 
@@ -35,7 +36,7 @@ class Radical < Sinatra::Base
     end
 
     def authenticate!
-      user = User.first(email: params['user']['email'])
+      user = User.find_by(email: params['user']['email'])
       if user.nil?
         throw(:warden, message: 'Log in failed')
       elsif user.authenticate(params['user']['password'])
@@ -49,9 +50,15 @@ class Radical < Sinatra::Base
   require_relative 'routes/agents'
   require_relative 'routes/accounts'
   require_relative 'routes/ads'
+  require_relative 'routes/auth'
+
+  require_relative 'helpers/helpers'
 
   register Sinatra::Radical::Routing::Agents
   register Sinatra::Radical::Routing::Accounts
   register Sinatra::Radical::Routing::Ads
+  register Sinatra::Radical::Routing::Authentication
+
+  helpers Sinatra::DateHelper
 
 end

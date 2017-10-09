@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20171007003807) do
     t.string "canonical"
     t.integer "listing_number"
     t.float "budget"
+    t.float "agent_budget"
     t.boolean "paid"
     t.integer "user_id"
     t.integer "ads_id"
