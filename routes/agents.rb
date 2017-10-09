@@ -7,9 +7,12 @@ module Sinatra
 
           app.get '/agents' do
             @users = User.all
+
+            haml :show_agents
           end
 
           app.get '/agents/:name' do
+
             @user = User.find_by(name: params[:name])
             @ad_groups = @user.ad_groups
 

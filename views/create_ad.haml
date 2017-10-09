@@ -1,0 +1,47 @@
+%section.section
+  .container
+    %h1.title= @ad_group.name
+    %h2.subtitle Create Ad
+    .columns
+      .column.is-half
+        %form{ action: "/ad/create", method: "POST" }
+          %input{ type: "hidden", name: "ad[ad_group]", value: "#{@ad_group.id}"}
+          .field
+            %label.label
+              Ad Name
+            .control
+              %input.input{ type: "text", placeholder: "Ad Name", name: "ad[name]" }
+          .field
+            %label.label
+              Ad Type
+            .control
+              .select
+                %select{ name: "ad[category]"}
+                  %option
+                    Choose ad type
+                  - @ad_categories.each do |c|
+                    %option{ value: "#{c.id}" }= c.name
+          .field
+            %label.label
+              Description
+            .control
+              %textarea.textarea{ placeholder: "Description", name: "ad[description]" }
+          .field
+            %label.label
+              Deadline
+            .control
+              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[deadline]"}
+          .field
+            %label.label
+              Run Date
+            .control
+              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[rundate]"}
+          .field
+            .control
+              %label.checkbox
+                %input{ type: "checkbox", name: "ad[vendor_pays]" }
+                  Vendor paying for ad
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Create Ad

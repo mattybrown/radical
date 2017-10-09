@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20171007003807) do
 
   create_table "ad_groups", force: :cascade do |t|
     t.string "name"
+    t.string "canonical"
+    t.integer "listing_number"
     t.float "budget"
     t.boolean "paid"
     t.integer "user_id"
@@ -58,6 +60,8 @@ ActiveRecord::Schema.define(version: 20171007003807) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
+    t.string "last_name"
+    t.string "email"
     t.string "password"
     t.integer "role_id"
     t.datetime "created_at", null: false

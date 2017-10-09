@@ -1,5 +1,4 @@
 # Accounts routes
-
 module Sinatra
   module Radical
     module Routing

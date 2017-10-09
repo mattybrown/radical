@@ -4,6 +4,14 @@ class User < ActiveRecord::Base
   has_one :role
   has_many :ad_groups
   has_many :ads, through: :ad_group
+
+  def authenticate(attempted_password)
+    if self.password == attempted_password
+      true
+    else
+      false
+    end
+  end
 end
 
 # Role model

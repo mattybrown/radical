@@ -1,0 +1,7 @@
+%section.section
+  .container
+    %h1.title Agents
+    %ul
+      - @users.each do |u|
+        %li
+          %a{ href: "/agents/#{u.name}" }= "#{u.name.capitalize} #{u.last_name.capitalize}"

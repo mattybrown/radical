@@ -1,10 +1,10 @@
 %section.section
   .container
-    %h1.title= @user.name.capitalize
+    %h1.title= "#{@user.name.capitalize} #{@user.last_name.capitalize}"
     - @ad_groups.each do |a|
       .card
         %header.card-header
-          %p.card-header-title= a.name
+          %p.card-header-title= "Listing: #{a.listing_number} - #{a.name}"
           %a.card-header-icon{ href: "#", aria: { label: "more options" } }
             %span.icon
               %i.fa.fa-angle-down{ aria: { hidden: true } }
@@ -25,6 +25,8 @@
                         %br
                         %hr
                         %small= b.run_date.strftime("Run date: %d/%m/%Y")
+                        - if b.end_date
+                          %small= " - #{b.end_date.strftime('%d/%m/%Y')}"
                     %nav.level.is-mobile
                       .level-left
                         - if !b.created
@@ -33,10 +35,10 @@
                               %i.fa.fa-cogs
                           %span.level-item
                             %span.icon.is-small
-                              %i.fa.fa-close
+                              %i.fa.fa-exclamation-circle
                           %span.level-item
                             %span.icon.is-small
-                              %i.fa.fa-close
+                              %i.fa.fa-exclamation-circle
                         - elsif b.created && !b.approved
                           %span.level-item
                             %span.icon.is-small
@@ -46,7 +48,7 @@
                               %i.fa.fa-comment
                           %span.level-item
                             %span.icon.is-small
-                              %i.fa.fa-close
+                              %i.fa.fa-exclamation-circle
                         - else
                           %span.level-item
                             %span.icon.is-small
@@ -57,6 +59,15 @@
                           %span.level-item
                             %span.icon.is-small
                               %i.fa.fa-newspaper-o
+                      .level-right
+                        %span.level-item
+                          %span.icon.is-small
+                            %a{ href: "/ad/edit/#{b.id}" }
+                              %i.fa.fa-edit
+                        %span.level-item
+                          %span.icon.is-small
+                            %a.has-text-danger{ href: "/ad/delete/#{b.id}" }
+                              %i.fa.fa-close
             %strong
               Budget: $#{a.budget}
             %small
@@ -64,7 +75,7 @@
             %progress.progress.is-success{ value: a.budget - @cost, max: a.budget }
             %time{ datetime: a.created_at}= a.created_at.strftime("Ad group created on %d/%m/%Y")
         %footer.card-footer
-          %a.card-footer-item{ href: "#"}
+          %a.card-footer-item{ href: "/ad/create/#{a.canonical}/"}
             Create New Ad
           %a.card-footer-item{ href: "#"}
             Edit Budget
