@@ -25,6 +25,11 @@ module Sinatra
             redirect '/login'
           end
 
+          app.get '/logout' do
+            session.destroy
+            redirect '/'
+          end
+
         end
       end
     end

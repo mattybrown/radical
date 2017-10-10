@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20171007003807) do
     t.string "name"
     t.string "last_name"
     t.string "email"
-    t.string "password"
+    t.string "password_hash"
     t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

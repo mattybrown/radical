@@ -1,4 +1,4 @@
-User.create(name: "matt", last_name: "brown", email: "matt@emarket.digital", password: "password", role_id: 1)
+User.create(name: "matt", last_name: "brown", email: "matt@emarket.digital", password_hash: "$2a$10$Vm1Nu4gNTrbsNMnSHaPxQOlKYL5Z4A1hNZZNrlk5cf5p75hyPe5eu", role_id: 1)
 Role.create(name: "Admin", access_level: 1)
 AdGroup.create(name: "94 Main St", budget: 600, agent_budget: 150, user_id: 1, canonical: "94mainst", listing_number: 13333)
 AdGroup.create(name: "106B Maxwell Rd", budget: 1500, agent_budget: 500, user_id: 1, canonical: "106bmaxwellrd", listing_number: 13334)
