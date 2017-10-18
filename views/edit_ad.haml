@@ -1,0 +1,49 @@
+%section.section
+  .container
+    %h1.title= @ad.ad_group.name
+    %h2.subtitle Create Ad
+    .columns
+      .column.is-half
+        %form{ action: "/ad/edit", method: "POST" }
+          %input{ type: "hidden", name: "ad[ad_group]", value: "#{@ad.ad_group.id}"}
+          %input{ type: "hidden", name: "ad[id]", value: "#{@ad.id}"}
+          .field
+            %label.label
+              Ad Name
+            .control
+              %input.input{ type: "text", placeholder: "Ad Name", name: "ad[name]", value: "#{@ad.name}" }
+          .field
+            %label.label
+              Ad Type
+            .control
+              .select
+                %select{ name: "ad[category]"}
+                  %option
+                    Choose ad type
+                  - @ad_categories.each do |c|
+                    %option{ value: "#{c.id}" }= c.name
+          .field
+            %label.label
+              Description
+            .control
+              %textarea.textarea{ placeholder: "Description", name: "ad[description]" }
+                #{@ad.description}
+          .field
+            %label.label
+              Deadline
+            .control
+              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[deadline]", value: "#{@ad.deadline.strftime('%d/%m/%Y')}" }
+          .field
+            %label.label
+              Run Date
+            .control
+              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[rundate]", value: "#{@ad.run_date.strftime('%d/%m/%Y')}" }
+          .field
+            .control
+              %label.checkbox
+                %input{ type: "checkbox", name: "ad[vendor_pays]", checked: true }
+                  Vendor paying for ad
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Save changes

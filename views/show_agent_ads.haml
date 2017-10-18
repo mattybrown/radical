@@ -76,16 +76,20 @@
                           %span.icon.is-small
                             %a.has-text-danger{ href: "/ad/delete/#{b.id}" }
                               %i.fa.fa-close
-            %strong
-              Budget: $#{a.budget}
-            %small
-              $#{@cost} spent
-            %progress.progress.is-success{ value: a.budget - @cost, max: a.budget }
-            %strong
-              Agent: $#{a.agent_budget}
-            %small
-              $#{@agent_spend} spent
-            %progress.progress.is-danger{ value: a.agent_budget - @agent_spend, max: a.agent_budget }
+            %p
+              %strong
+                Total advertising budget: $#{a.budget + a.agent_budget}
+            %p
+              %strong
+                Vendor: $#{@cost}
+              %small
+                spent of $#{a.budget}
+              %progress.progress.is-success{ value: a.budget - @cost, max: a.budget }
+              %strong
+                Agent: $#{@agent_spend}
+              %small
+                spent of $#{a.agent_budget}
+              %progress.progress.is-success{ value: a.agent_budget - @agent_spend, max: a.agent_budget }
             %time{ datetime: a.created_at}= a.created_at.strftime("Ad group created on %d/%m/%Y")
         %footer.card-footer
           %a.card-footer-item{ href: "/ad/create/#{a.canonical}/"}
