@@ -1,0 +1,33 @@
+%section.section
+  .container
+    %h1.title Edit Ad Group
+    %h2.subtitle= "#{@adgroup.name} - #{@adgroup.user.name.capitalize} #{@adgroup.user.last_name.capitalize}"
+    .columns
+      .column.is-half
+        %form{ action: "/adgroup/update", method: "POST" }
+          %input{ type: "hidden", name: "adgroup[id]", value: "#{@adgroup.id}"}
+          .field
+            .field
+              %label.label
+                Ad group name
+              .control
+                %input.input{ type: "text", name: "adgroup[name]", value: @adgroup.name }
+          .field
+            %label.label
+              Listing number
+            .control
+              %input.input{ type: "text", name: "adgroup[listing_number]", value: @adgroup.listing_number }
+          .field
+            %label.label
+              Vendor budget
+            .control
+              %input.input{ type: "text", name: "adgroup[vendor_budget]", value: @adgroup.budget }
+          .field
+            %label.label
+              Agent budget
+            .control
+              %input.input{ type: "text", name: "adgroup[agent_budget]", value: @adgroup.agent_budget }
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Update Ad Group

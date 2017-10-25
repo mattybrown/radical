@@ -101,7 +101,7 @@ module Sinatra
 
               params[:ad][:vendor_pays] == "on" ? v = true : v = false
 
-              a.update(
+              if a.update(
                 name: params[:ad][:name],
                 description: params[:ad][:description],
                 deadline: dl,
@@ -111,13 +111,13 @@ module Sinatra
                 ad_group_id: params[:ad][:ad_group],
                 ad_category_id: params[:ad][:category]
               )
-              if a.save
-                flash[:success] = "Ad created"
+                flash[:success] = "Ad updated"
                 redirect "/agents"
               else
-                flash[:error] = "Error: ad creation failed"
+                flash[:error] = "Error: ad save failed"
                 redirect back
               end
+
             end
           end
 

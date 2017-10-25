@@ -50,6 +50,7 @@ class Radical < Sinatra::Base
   require_relative 'routes/agents'
   require_relative 'routes/accounts'
   require_relative 'routes/ads'
+  require_relative 'routes/ad_groups'
   require_relative 'routes/auth'
 
   require_relative 'helpers/helpers'
@@ -57,6 +58,7 @@ class Radical < Sinatra::Base
   register Sinatra::Radical::Routing::Agents
   register Sinatra::Radical::Routing::Accounts
   register Sinatra::Radical::Routing::Ads
+  register Sinatra::Radical::Routing::AdGroups
   register Sinatra::Radical::Routing::Authentication
 
   helpers Sinatra::DateHelper

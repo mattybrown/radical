@@ -6,7 +6,7 @@ module Sinatra
         def self.registered(app)
 
           app.get '/agents' do
-            @users = User.all
+            @users = User.where(role_id: 4)
 
             haml :show_agents
           end

@@ -1,0 +1,41 @@
+%section.section
+  .container
+    %h1.subtitle Create Ad Group
+    .columns
+      .column.is-half
+        %form{ action: "/adgroup/create", method: "POST" }
+          .field
+            %label.label
+              Agent
+            .control
+              .select
+                %select{ name: "adgroup[agent]"}
+                  %option
+                    Choose agent
+                  - @agents.each do |a|
+                    %option{ value: "#{a.id}" }= "#{a.name.capitalize} #{a.last_name.capitalize}"
+          .field
+            .field
+              %label.label
+                Ad group name
+              .control
+                %input.input{ type: "text", placeholder: "eg. 99 Example St", name: "adgroup[name]"}
+          .field
+            %label.label
+              Listing number
+            .control
+              %input.input{ type: "text", placeholder: "eg. 13337", name: "adgroup[listing_number]"}
+          .field
+            %label.label
+              Vendor budget
+            .control
+              %input.input{ type: "text", placeholder: "eg. 1000", name: "adgroup[vendor_budget]"}
+          .field
+            %label.label
+              Agent budget
+            .control
+              %input.input{ type: "text", placeholder: "eg. 1000", name: "adgroup[agent_budget]"}
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Create Ad Group
