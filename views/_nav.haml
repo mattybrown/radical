@@ -1,0 +1,18 @@
+%nav.navbar.is-black{ role: 'navigation', aria: { label: 'main navigation' } }
+  .navbar-brand
+    %a.navbar-item{ href: '/' }
+      rADical
+
+    %button.button.navbar-burger.is-black{ data: { target: 'navMenu' } }
+      %span
+      %span
+      %span
+
+  .navbar-menu#navMenu
+    .navbar-start
+      %a.navbar-item{ href: '/' }
+        Home
+      %a.navbar-item{ href: '/agents' }
+        Agents
+      %a.navbar-item{ href: '/ads' }
+        Ads

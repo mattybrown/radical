@@ -6,6 +6,8 @@
     %script{ type: "text/javascript", src: url('/js/custom.js') }
   %body
 
+    = haml :'_nav'
+
     - if flash[:success]
       .section
         .container

@@ -47,6 +47,10 @@ class Radical < Sinatra::Base
     end
   end
 
+  get '/' do
+    haml :index
+  end
+
   require_relative 'routes/agents'
   require_relative 'routes/accounts'
   require_relative 'routes/ads'
