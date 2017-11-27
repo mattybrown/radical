@@ -1,0 +1,7 @@
+%section.section
+  .container
+    %h1.title Ads
+    %ul
+      - @ads.each do |a|
+        %li
+          %a{ href: "/ad/#{a.id}" }= "#{a.name}: #{a.user.name}"

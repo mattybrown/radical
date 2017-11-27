@@ -5,6 +5,11 @@ module Sinatra
       module Ads
         def self.registered(app)
 
+          app.get '/ads' do
+            @ads = Ad.where(complete: false)
+            haml :show_ads
+          end
+
           app.get '/ad/create/:ad_group/' do
             @ad_group = AdGroup.find_by(canonical: params[:ad_group])
             @ad_categories = AdCategory.where(company_paid: false)
