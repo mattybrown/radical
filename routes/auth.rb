@@ -13,7 +13,7 @@ module Sinatra
             env['warden'].authenticate!
 
             if session[:return_to].nil?
-              redirect '/'
+              redirect "/"
             else
               redirect session[:return_to]
             end

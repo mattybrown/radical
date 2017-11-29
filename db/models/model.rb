@@ -4,7 +4,7 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   include BCrypt
   validates_presence_of :name
-  has_one :role
+  belongs_to :role
   has_many :ad_groups
   has_many :ads, through: :ad_group
 
@@ -24,11 +24,12 @@ class User < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+
 end
 
 # Role model
 class Role < ActiveRecord::Base
-  belongs_to :user
+  has_many :users
 end
 
 # Ad Group model

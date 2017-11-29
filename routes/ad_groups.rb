@@ -6,6 +6,9 @@ module Sinatra
         def self.registered(app)
 
           app.get '/adgroup/create' do
+            env['warden'].authenticate!
+            access_level(3)
+
             @agents = User.where(role_id: 4)
             haml :create_ad_group
           end

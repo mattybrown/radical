@@ -12,5 +12,24 @@ module Sinatra
         false
     end
 
+    def format_date(date)
+      date.strftime('%d/%m/%y')
+    end
+
   end
+
+  module AccessHelper
+
+    def access_level(level)
+      if env['warden'].user.role.access_level > level
+        redirect '/'
+      end
+    end
+
+    def privileged(level)
+      env['warden'].user.role.access_level > level
+    end
+
+  end
+
 end

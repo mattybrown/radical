@@ -48,23 +48,40 @@ class Radical < Sinatra::Base
   end
 
   get '/' do
+    env['warden'].authenticate!
+    if env['warden'].user
+      if env['warden'].user.role.id == 4
+        dest = env['warden'].user.name + '.' + env['warden'].user.last_name
+        redirect "/agents/#{dest}"
+      elsif env['warden'].user.role.access_level < 4
+        redirect '/admin'
+      end
+
+    end
     haml :index
   end
 
   require_relative 'routes/agents'
   require_relative 'routes/accounts'
   require_relative 'routes/ads'
+  require_relative 'routes/ad_categories'
   require_relative 'routes/ad_groups'
+  require_relative 'routes/admin'
   require_relative 'routes/auth'
+  require_relative 'routes/users'
 
   require_relative 'helpers/helpers'
 
   register Sinatra::Radical::Routing::Agents
   register Sinatra::Radical::Routing::Accounts
   register Sinatra::Radical::Routing::Ads
+  register Sinatra::Radical::Routing::AdCategories
   register Sinatra::Radical::Routing::AdGroups
+  register Sinatra::Radical::Routing::Admin
   register Sinatra::Radical::Routing::Authentication
+  register Sinatra::Radical::Routing::Users
 
   helpers Sinatra::DateHelper
+  helpers Sinatra::AccessHelper
 
 end

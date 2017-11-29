@@ -6,13 +6,16 @@ module Sinatra
         def self.registered(app)
 
           app.get '/ads' do
-            @ads = Ad.where(complete: false)
+            @ads = Ad.all
             haml :show_ads
           end
 
           app.get '/ad/create/:ad_group/' do
+            env['warden'].authenticate!
+
             @ad_group = AdGroup.find_by(canonical: params[:ad_group])
-            @ad_categories = AdCategory.where(company_paid: false)
+            privileged(3) ? @ad_categories = AdCategory.where(company_paid: false) : @ad_categories = AdCategory.all
+
             haml :create_ad
           end
 

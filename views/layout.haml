@@ -24,5 +24,13 @@
               %p Error
             .message-body
               %p= flash[:error]
+    - elsif flash[:notice]
+      .section
+        .container
+          %article.message.is-info
+            .message-header
+              %p Notice
+            .message-body
+              %p= flash[:notice]
 
     = yield

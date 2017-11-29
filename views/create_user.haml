@@ -1,0 +1,40 @@
+%section.section
+  .container
+    %h1.title Create user
+    .columns
+      .column.is-half
+        %form{ action: "/user/create", method: "POST" }
+          .field
+            %label.label
+              First Name
+            .control
+              %input.input{ type: "text", placeholder: "First Name", name: "user[first_name]" }
+          .field
+            %label.label
+              Last Name
+            .control
+              %input.input{ type: "text", placeholder: "Last Name", name: "user[last_name]" }
+          .field
+            %label.label
+              Email Address
+            .control
+              %input.input{ type: "text", placeholder: "Email Address", name: "user[email]" }
+          .field
+            %label.label
+              Password
+            .control
+              %input.input{ type: "password", placeholder: "Password", name: "user[password]" }
+          .field
+            %label.label
+              Role
+            .control
+              .select
+                %select{ name: "user[role]"}
+                  %option
+                    Choose user role
+                  - @roles.each do |r|
+                    %option{ value: "#{r.id}" }= r.name
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Create User

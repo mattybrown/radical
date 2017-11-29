@@ -1,0 +1,26 @@
+%section.section
+  .container
+    %h1.subtitle Create Ad Category
+    .columns
+      .column.is-half
+        %form{ action: "/adcategory/create", method: "POST" }
+          .field
+            .field
+              %label.label
+                Ad category name
+              .control
+                %input.input{ type: "text", placeholder: "eg. MPG 1-2 page", name: "adcategory[name]"}
+          .field
+            %label.label
+              Price
+            .control
+              %input.input{ type: "number", placeholder: "eg. 250", name: "adcategory[price]"}
+          .field
+            .control
+              %label.checkbox
+                %input{ type: "checkbox", name: "adcategory[company_pays]", checked: false }
+                  Tick this box if this ad type is always paid for by the company
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Create Ad Category

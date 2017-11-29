@@ -1,7 +1,31 @@
 %section.section
   .container
     %h1.title Ads
-    %ul
+    %table.table.is-hoverable.is-narrow
+      %thead
+        %tr
+          %th Reference
+          %th Agent
+          %th Name
+          %th Ad Group
+          %th Created
+          %th Deadline
+          %th
+            %abbr{ title: "Created" } CR
+          %th
+            %abbr{ title: "Complete" } CO
+          %th
+            %abbr{ title: "Approved" } A
+      %tbody
       - @ads.each do |a|
-        %li
-          %a{ href: "/ad/#{a.id}" }= "#{a.name}: #{a.user.name}"
+        %tr
+          %td
+            %a{ href: "/ad/#{a.id}" }= "#{a.reference}"
+          %td= "#{a.user.name.capitalize}"
+          %td= "#{a.name}"
+          %td= "#{a.ad_group.name}"
+          %td= "#{format_date(a.created_at)}"
+          %td= "#{format_date(a.deadline)}"
+          %td= a.created ? '<span class="icon"><i class="fa fa-check"></i></span>' : '<span class="icon"><i class="fa fa-remove"></i></span>'
+          %td= a.complete ? '<span class="icon"><i class="fa fa-check"></i></span>' : '<span class="icon"><i class="fa fa-remove"></i></span>'
+          %td= a.approved ? '<span class="icon"><i class="fa fa-check"></i></span>' : '<span class="icon"><i class="fa fa-remove"></i></span>'
