@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20171007003807) do
     t.string "name"
     t.float "price"
     t.boolean "company_paid"
+    t.boolean "mpg_ad"
   end
 
   create_table "ad_groups", force: :cascade do |t|

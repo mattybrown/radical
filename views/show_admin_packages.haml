@@ -1,0 +1,64 @@
+%section.section
+  .container
+    %h1.title Admin
+    .columns
+      = haml :'_admin_menu'
+      .column
+        %h2.subtitle= "Ad Package - #{@package}"
+
+        %form{ action: "/ad/package/create", method: "POST" }
+          %input{ type: "hidden", name: "ad[ad_group]", value: "#{@ad_group.id}"}
+          - adnum = 0
+
+          %h2.subtitle= "Full pages: #{@fullpage}"
+          - @fullpage.to_i.times do |f|
+            - adnum += 1
+            %input{ type: "hidden", name: "ad#{adnum}[category]", value: "full"}
+            .field.is-horizontal
+              .field-label.is-normal
+                %label.label
+                  Full Page
+              .field-body
+                .field
+                  .control
+                    %input.input{ type: "text", placeholder: "Ad Name", name: "ad#{adnum}[name]", value: "#{@package}#{adnum}" }
+                .field
+                  .control
+                    %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad#{adnum}[rundate]", value: "#{this_sat + (adnum * 7) - 7}"}
+
+          %h2.subtitle= "Half pages: #{@halfpage}"
+          - @halfpage.to_i.times do |f|
+            - adnum += 1
+            %input{ type: "hidden", name: "ad#{adnum}[category]", value: "1/2"}
+            .field.is-horizontal
+              .field-label.is-normal
+                %label.label
+                  Half Page
+              .field-body
+                .field
+                  .control
+                    %input.input{ type: "text", placeholder: "Ad Name", name: "ad#{adnum}[name]", value: "#{@package}#{adnum}" }
+                .field
+                  .control
+                    %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad#{adnum}[rundate]", value: "#{this_sat + (adnum * 7) - 7}"}
+
+          %h2.subtitle= "Quarter pages: #{@quarterpage}"
+          - @quarterpage.to_i.times do |f|
+            - adnum += 1
+            %input{ type: "hidden", name: "ad#{adnum}[category]", value: "1/4"}
+            .field.is-horizontal
+              .field-label.is-normal
+                %label.label
+                  Quarter Page
+              .field-body
+                .field
+                  .control
+                    %input.input{ type: "text", placeholder: "Ad Name", name: "ad#{adnum}[name]", value: "#{@package}#{adnum}" }
+                .field
+                  .control
+                    %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad#{adnum}[rundate]", value: "#{this_sat + (adnum * 7) - 7}"}
+
+          .field
+            .control
+              %button.button.is-primary{ type: "submit" }
+                Create Ads

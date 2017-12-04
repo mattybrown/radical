@@ -92,8 +92,12 @@
               %progress.progress.is-success{ value: a.agent_budget - @agent_spend, max: a.agent_budget }
             %time{ datetime: a.created_at}= a.created_at.strftime("Ad group created on %d/%m/%Y")
         %footer.card-footer
-          %a.card-footer-item{ href: "/ad/create/#{a.canonical}/"}
+          %a.card-footer-item{ href: "/ad/create/#{a.canonical}/" }
             Create New Ad
-          %a.card-footer-item{ href: "#"}
+          %a.card-footer-item{ href: "#" }
             Edit Budget
+          %a.card-footer-item{ href: "/adgroup/delete/#{a.id}" }
+            %span.icon
+              %i.fa.fa-close
+            Delete Ad Group
       %br

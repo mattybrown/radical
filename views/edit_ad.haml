@@ -12,16 +12,17 @@
               Ad Name
             .control
               %input.input{ type: "text", placeholder: "Ad Name", name: "ad[name]", value: "#{@ad.name}" }
-          .field
-            %label.label
-              Ad Type
-            .control
-              .select
-                %select{ name: "ad[category]"}
-                  %option
-                    Choose ad type
-                  - @ad_categories.each do |c|
-                    %option{ value: "#{c.id}" }= c.name
+          - if !@ad.ad_category.company_paid
+            .field
+              %label.label
+                Ad Type
+              .control
+                .select
+                  %select{ name: "ad[category]"}
+                    %option
+                      Choose ad type
+                    - @ad_categories.each do |c|
+                      %option{ value: "#{c.id}", selected: @ad.ad_category_id == c.id }= c.name
           .field
             %label.label
               Description

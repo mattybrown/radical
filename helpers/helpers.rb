@@ -5,15 +5,30 @@ module Sinatra
   module DateHelper
 
     def valid_date?(string)
-      return true if string == 'never'
-
-      !!(string.match(/\d{4}-\d{2}-\d{2}/) && Date.strptime(string, '%Y-%m-%d'))
+      begin
+        Date.parse(string)
       rescue ArgumentError
-        false
+      end
     end
 
     def format_date(date)
-      date.strftime('%d/%m/%y')
+      date.strftime('%d/%m/%Y')
+    end
+
+    def this_fri
+      d = Date.today
+      while d.wday != 5
+        d = d + 1
+      end
+      return d
+    end
+
+    def this_sat
+      d = Date.today
+      while d.wday != 6
+        d = d + 1
+      end
+      return d
     end
 
   end
@@ -28,6 +43,14 @@ module Sinatra
 
     def privileged(level)
       env['warden'].user.role.access_level > level
+    end
+
+  end
+
+  module PathHelper
+
+    def active_page?(path='')
+      request.path_info == '/' + path
     end
 
   end

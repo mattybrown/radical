@@ -65,7 +65,7 @@ module Sinatra
                 )
                 if a.save
                   flash[:success] = "Ad created"
-                  redirect "/agents"
+                  redirect "/"
                 else
                   flash[:error] = "Error: ad creation failed"
                   redirect back
@@ -103,11 +103,11 @@ module Sinatra
               valid_date?(params[:ad][:rundate]) ? rd = Date.parse(params[:ad][:rundate]) : rd = Date.today
 
               ad_group = AdGroup.find(params[:ad][:ad_group])
-              ad_category = AdCategory.find(params[:ad][:category])
               ad_number = ad_group.ads.count + 1
               reference = ad_group.listing_number.to_s + "." + ad_number.to_s
 
               params[:ad][:vendor_pays] == "on" ? v = true : v = false
+              params[:ad][:category] == nil ? ac = a.ad_category_id : ac = params[:ad][:category]
 
               if a.update(
                 name: params[:ad][:name],
@@ -117,13 +117,19 @@ module Sinatra
                 vendor_pays: v,
                 reference: reference,
                 ad_group_id: params[:ad][:ad_group],
-                ad_category_id: params[:ad][:category]
+                ad_category_id: ac
               )
                 flash[:success] = "Ad updated"
                 redirect "/agents"
               else
                 flash[:error] = "Error: ad save failed"
                 redirect back
+              end
+
+              app.post '/ad/package/create' do
+                if params[:ad]
+                  flash[:notice] = params[:ad]
+                end
               end
 
             end

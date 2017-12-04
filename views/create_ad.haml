@@ -30,12 +30,12 @@
             %label.label
               Deadline
             .control
-              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[deadline]"}
+              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[deadline]", value: "#{format_date(this_fri)}"}
           .field
             %label.label
               Run Date
             .control
-              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[rundate]"}
+              %input.input{ type: "text", placeholder: "eg. 01/10/2017", name: "ad[rundate]", value: "#{format_date(this_sat)}"}
           .field
             .control
               %label.checkbox

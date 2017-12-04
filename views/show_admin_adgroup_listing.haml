@@ -1,0 +1,116 @@
+%section.section
+  .container
+    %h1.title Admin
+    .columns
+      = haml :'_admin_menu'
+      .column
+        .card
+          %header.card-header
+            %p.card-header-title= "Listing: #{@adgroup.listing_number} - #{@adgroup.name}"
+
+            .dropdown.is-active
+              .dropdown-trigger
+                %button.button{ aria: { haspopup: "true", controls: "dropdown-menu"} }
+                  %span
+                    Add ad package
+                  %span.icon.is-small
+                    %i.fa.fa-angle-down{ aria: { hidden: true } }
+              .dropdown-menu#dropdown-menu{ role: "menu" }
+                .dropdown-content
+                  %a.dropdown-item{ href: "/admin/package/#{@adgroup.listing_number}/1" }= "Premium"
+                  %a.dropdown-item{ href: "/admin/package/#{@adgroup.listing_number}/2" }= "Premium Plus"
+                  %a.dropdown-item{ href: "/admin/package/#{@adgroup.listing_number}/3" }= "Platinum"
+                  %a.dropdown-item{ href: "/admin/package/#{@adgroup.listing_number}/4" }= "Platinum Plus"
+
+          .card-content
+            .content
+              - @cost = 0
+              - @agent_spend = 0
+              - @adgroup.ads.each do |b|
+                - if b.ad_category.company_paid == false && b.vendor_pays == true
+                  - @cost += b.ad_category.price
+                - elsif b.ad_category.company_paid == false && b.vendor_pays == false
+                  - @agent_spend += b.ad_category.price
+                .box
+                  %ad.media
+                    .media-content
+                      .content
+                        %p
+                          %strong #{b.name} - #{b.ad_category.name}
+                          %small= b.reference
+                          %br
+                          = b.description
+                          %br
+                          %hr
+                          %small= b.deadline.strftime("Deadline %d/%m/%Y")
+                          %br
+                          %small= b.run_date.strftime("Run date: %d/%m/%Y")
+                          %br
+                          %small= "$#{b.ad_category.price} "
+                          - if b.end_date
+                            %small= " - #{b.end_date.strftime('%d/%m/%Y')}"
+                      %nav.level.is-mobile
+                        .level-left
+                          - if !b.created
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-cogs
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-exclamation-circle
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-exclamation-circle
+                          - elsif b.created && !b.approved
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-check-circle
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-comment
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-exclamation-circle
+                          - else
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-check-circle
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-check-circle
+                            %span.level-item
+                              %span.icon.is-small
+                                %i.fa.fa-newspaper-o
+                        .level-right
+                          %span.level-item
+                            %span.icon.is-small
+                              %a{ href: "/ad/edit/#{b.id}" }
+                                %i.fa.fa-edit
+                          %span.level-item
+                            %span.icon.is-small
+                              %a.has-text-danger{ href: "/ad/delete/#{b.id}" }
+                                %i.fa.fa-close
+              %p
+                %strong
+                  Total advertising budget: $#{@adgroup.budget + @adgroup.agent_budget}
+              %p
+                %strong
+                  Vendor: $#{@cost}
+                %small
+                  spent of $#{@adgroup.budget}
+                %progress.progress.is-success{ value: @adgroup.budget - @cost, max: @adgroup.budget }
+                %strong
+                  Agent: $#{@agent_spend}
+                %small
+                  spent of $#{@adgroup.agent_budget}
+                %progress.progress.is-success{ value: @adgroup.agent_budget - @agent_spend, max: @adgroup.agent_budget }
+              %time{ datetime: @adgroup.created_at}= @adgroup.created_at.strftime("Ad group created on %d/%m/%Y")
+          %footer.card-footer
+            %a.card-footer-item{ href: "/ad/create/#{@adgroup.canonical}/" }
+              Create New Ad
+            %a.card-footer-item{ href: "#" }
+              Edit Budget
+            %a.card-footer-item{ href: "/adgroup/delete/#{@adgroup.id}" }
+              %span.icon
+                %i.fa.fa-close
+              Delete Ad Group

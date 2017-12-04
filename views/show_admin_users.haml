@@ -1,0 +1,31 @@
+%section.section
+  .container
+    %h1.title Admin
+    .columns
+      = haml :'_admin_menu'
+      .column
+        %nav.panel
+          %p.panel-tabs
+            %a{ href: '/user/create' }= 'Create User'
+
+        %h2.subtitle Users
+        %table.table.is-hoverable.is-narrow
+          %thead
+            %tr
+              %th Name
+              %th Email
+              %th Role
+              %th Created at
+              %th Edit
+
+          %tbody
+          - @users.each do |u|
+            %tr
+              %td= "#{u.name.capitalize} #{u.last_name.capitalize}"
+              %td= "#{u.email}"
+              %td= "#{u.role.name}"
+              %td= "#{format_date(u.created_at)}"
+              %td
+                %span.icon
+                  %a{ href: "/user/edit/#{u.id}"}
+                    %i.fa.fa-edit

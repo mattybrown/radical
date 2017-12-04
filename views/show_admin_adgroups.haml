@@ -1,0 +1,37 @@
+%section.section
+  .container
+    %h1.title Admin
+    .columns
+      = haml :'_admin_menu'
+      .column
+        %nav.panel
+          %p.panel-tabs
+            %a{ href: '/adgroup/create' }= 'Create Ad Group'
+            
+
+        %h2.subtitle Ad Groups
+
+        %table.table.is-hoverable.is-narrow
+          %thead
+            %tr
+              %th Reference
+              %th Agent
+              %th Name
+              %th Ad Count
+              %th Created
+              %th Edit
+
+          %tbody
+          - @ad_groups.each do |g|
+            %tr
+              %td
+                %a{ href: "/admin/adgroup/#{g.listing_number}" }
+                  ="#{g.listing_number}"
+              %td= "#{g.user.name.capitalize} #{g.user.last_name.capitalize}"
+              %td= "#{g.name}"
+              %td= "#{g.ads.count}"
+              %td= "#{format_date(g.created_at)}"
+              %td
+                %span.icon
+                  %a{ href: "/adgroup/edit/#{g.id}"}
+                    %i.fa.fa-edit

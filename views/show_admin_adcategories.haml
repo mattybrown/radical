@@ -1,0 +1,30 @@
+%section.section
+  .container
+    %h1.title Admin
+    .columns
+      = haml :'_admin_menu'
+      .column
+        %nav.panel
+          %p.panel-tabs
+            %a{ href: '/adcategory/create' }= 'Create Ad Category'
+        %h2.subtitle Ad Categories
+        %table.table.is-hoverable.is-narrow
+          %thead
+            %tr
+              %th Name
+              %th Price
+              %th Company paid
+              %th MPG ad
+              %th Edit
+
+          %tbody
+          - @ad_categories.each do |c|
+            %tr
+              %td= "#{c.name}"
+              %td= "$#{c.price}"
+              %td= "#{c.company_paid}"
+              %td= "#{c.mpg_ad}"
+              %td
+                %span.icon
+                  %a{ href: "/adcategory/edit/#{c.id}"}
+                    %i.fa.fa-edit

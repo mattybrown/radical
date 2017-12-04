@@ -59,6 +59,18 @@ module Sinatra
             end
           end
 
+          app.get '/adgroup/delete/:id' do
+            adgroup = AdGroup.find(params[:id])
+            if adgroup
+              adgroup.destroy
+              flash[:success] = "Ad Group successfully deleted"
+              redirect back
+            else
+              flash[:error] = "That Ad Group does not exist..."
+              redirect back
+            end
+          end
+
         end
       end
     end

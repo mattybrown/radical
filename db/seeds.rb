@@ -10,9 +10,9 @@ User.create(name: "sue", last_name: "duckworth", email: "michael@firstnational.c
 User.create(name: "matt", last_name: "croad", email: "matt@firstnational.co", password_hash: "$2a$10$Vm1Nu4gNTrbsNMnSHaPxQOlKYL5Z4A1hNZZNrlk5cf5p75hyPe5eu", role_id: 3)
 AdGroup.create(name: "94 Main St", budget: 600, agent_budget: 150, user_id: 1, canonical: "94mainst", listing_number: 13333)
 AdGroup.create(name: "106B Maxwell Rd", budget: 1500, agent_budget: 500, user_id: 1, canonical: "106bmaxwellrd", listing_number: 13334)
-AdCategory.create(name: "MPG 1/2 page", price: 250, company_paid: false)
-AdCategory.create(name: "MPG 1/2 page COMPANY", price: 250, company_paid: true)
-AdCategory.create(name: "Video", price: 300, company_paid: false)
+AdCategory.create(name: "MPG 1/2 page", price: 250, company_paid: false, mpg_ad: true)
+AdCategory.create(name: "MPG 1/2 page COMPANY", price: 250, company_paid: true, mpg_ad: true)
+AdCategory.create(name: "Video", price: 300, company_paid: false, mpg_ad: false)
 Ad.create(
   name: "testAd",
   reference: "matt-testad-1",

@@ -83,5 +83,6 @@ class Radical < Sinatra::Base
 
   helpers Sinatra::DateHelper
   helpers Sinatra::AccessHelper
+  helpers Sinatra::PathHelper
 
 end

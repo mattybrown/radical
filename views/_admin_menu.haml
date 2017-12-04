@@ -1,0 +1,17 @@
+.column.is-one-quarter
+  %aside.menu
+    %p.menu-label
+      Admin menu
+    %ul.menu-list
+      %li
+        %a{ href: '/admin/users', class: ('is-active' if active_page?('admin/users')) }
+          Users
+      %li
+        %a{ href: '/admin/adgroups', class: ("is-active" if active_page?('admin/adgroups')) }
+          Ad Groups
+      %li
+        %a{ href: '/admin/adcategories', class: ("is-active" if active_page?('admin/adcategories')) }
+          Ad Categories
+      %li
+        %a
+          Balances

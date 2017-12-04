@@ -22,5 +22,10 @@
                   Tick this box if this ad type is always paid for by the company
           .field
             .control
+              %label.checkbox
+                %input{ type: "checkbox", name: "adcategory[mpg_ad]", checked: false }
+                  Tick if ad is an MPG ad
+          .field
+            .control
               %button.button.is-primary{ type: "submit" }
                 Create Ad Category
