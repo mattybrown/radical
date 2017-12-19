@@ -126,12 +126,28 @@ module Sinatra
                 redirect back
               end
 
-              app.post '/ad/package/create' do
-                if params[:ad]
-                  flash[:notice] = params[:ad]
-                end
-              end
+            end
+          end
 
+          app.post '/ad/package/create' do
+            if params[:ad]
+              h = params.select{|k,v| k.include? "ad"}
+              g = h.shift
+              group = g[1]["ad_group"].to_i
+              h.each do |ad|
+                a = Ad.new(
+                  name: ad[1]["name"],
+                  description: "Package generated",
+                  deadline: ad[1]["rundate"],
+                  run_date: ad[1]["rundate"],
+                  vendor_pays: true,
+                  reference: reference,
+                  ad_group_id: group,
+                  ad_category_id: params[:ad][:category]
+                )
+              end
+              flash[:notice] = group
+              redirect back
             end
           end
 

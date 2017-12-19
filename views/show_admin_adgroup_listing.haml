@@ -8,11 +8,11 @@
           %header.card-header
             %p.card-header-title= "Listing: #{@adgroup.listing_number} - #{@adgroup.name}"
 
-            .dropdown.is-active
+            .dropdown
               .dropdown-trigger
                 %button.button{ aria: { haspopup: "true", controls: "dropdown-menu"} }
                   %span
-                    Add ad package
+                    Add package
                   %span.icon.is-small
                     %i.fa.fa-angle-down{ aria: { hidden: true } }
               .dropdown-menu#dropdown-menu{ role: "menu" }
